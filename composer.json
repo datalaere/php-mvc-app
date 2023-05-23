@@ -1,0 +1,20 @@
+{
+    "name": "datalaere/php-mvc-app",
+    "description": "PHP MVC APP",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Elvin",
+            "email": "info@datalaere.dk"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^8.83"
+    },
+    "autoload": {
+		"psr-4": {
+			"MVC\\": "app"
+		}
+	}
+}
