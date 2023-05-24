@@ -5,8 +5,11 @@ namespace MVC;
 class App 
 {
 
-    protected $controller = 'Home';
+    protected $default = 'Default';
+    protected $controller;
+    protected $error = 'Error';
     protected $method = 'index';
+    protected $id = 'show';
     protected $params = [];
     protected $url = 'url';
     protected $path = '../app/controllers/';
@@ -15,31 +18,44 @@ class App
     {
         $this->url = $this->parseUrl();
 
-        if(!isset($this->url[0])) {
-            $this->url[0] = $this->controller;
-        } elseif(!isset($this->url[1])) {
-            $this->url[1] = $this->method;
+        if(empty($this->url[0])) {
+            $this->url[0] = $this->default;
         }
+
+        if(empty($this->url[1])) {
+            $this->url[1] = $this->method;
+        } 
+
+        if(is_numeric($this->url[1])) {
+            $this->url[3] = $this->url[1];
+            $this->url[1] = $this->id;
+        } 
         
         if(file_exists($this->path .  ucfirst($this->url[0]) . 'Controller.php')) {
-            $this->controller = $this->url[0];
+            $this->controller = $this->url[0] . 'Controller';
             unset($this->url[0]);
         } else {
-            $this->controller = $this->controller . 'Controller';
+            $this->controller = ucfirst($this->error) . 'Controller';
         }
 
-        require_once $this->path . $this->controller . 'Controller.php';
+        require_once $this->path . $this->controller . '.php';
 
-        $this->controller = new $this->controller . 'Controller';
+        $this->controller = new $this->controller;
 
-        if(method_exists($this->controller, $this->url[1])) {
+        if(isset($this->url[1]) && method_exists($this->controller, $this->url[1])) {
             $this->method = $this->url[1];
             unset($this->url[1]);
+        } else {
+            require_once $this->path . ucfirst($this->error) . 'Controller.php';
+
+            $this->controller = ucfirst($this->error) . 'Controller';
+
+            $this->controller = new $this->controller;
         }
 
         $this->params = $this->url ? array_values($this->url) : [];
 
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        return call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     protected function parseUrl()

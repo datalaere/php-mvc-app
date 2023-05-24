@@ -3,13 +3,13 @@
 return [
     'app' => [
         'path' => ABSPATH,
-        'views' => ABSPATH . '/app/views',
+        'views' => ABSPATH . '/app/views/',
         'url' => ''
     ],
     'db' => [
         'host' => '127.0.0.1',
         'driver' => 'mysql',
-        'database' => '',
+        'database' => 'mvc',
         'username' => 'root',
         'password' => 'mysql',
         'charset' => 'utf8',

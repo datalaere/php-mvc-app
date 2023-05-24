@@ -17,6 +17,4 @@ interface ControllerInterface
     public function update($id);
 
     public function destroy($id);
-
-    public function delete();
 }

@@ -14,7 +14,8 @@
     },
     "autoload": {
 		"psr-4": {
-			"MVC\\": "app"
+			"MVC\\": "app/src",
+            "App\\": "app/"
 		}
 	}
 }

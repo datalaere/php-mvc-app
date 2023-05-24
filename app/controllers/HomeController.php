@@ -1,48 +1,13 @@
 <?php
 
 use MVC\Controller;
-
-use MVC\Models\User;
+use MVC\View;
 
 class HomeController extends Controller
 {
-    public function index($name = '')
+    public function index()
     {
-        $this->view('home/index');
+        return View::render('default/index');
     }
 
-    public function create()
-    {
-        User::create([]);
-    }
-
-    public function store()
-    {
-
-    }
-
-    public function show($id)
-    {
-
-    }
-
-    public function edit($id)
-    {
-
-    }
-
-    public function update($id)
-    {
-
-    }
-
-    public function destroy($id)
-    {
-
-    }
-
-    public function delete()
-    {
-        
-    }
 }
